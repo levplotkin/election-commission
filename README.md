@@ -1,6 +1,4 @@
-# election-commission
 Fuse: Kafka streams
-
 
 Download confluent distribution
 https://www.confluent.io/product/confluent-open-source/
@@ -22,6 +20,7 @@ kafka is [UP]
 zookeeper is [UP]
 
 Control-center URL : http://localhost:9021
+Swagger page URL : http://localhost:9000/swagger-ui.html
 
 Guidelines
 We will develop polling system based on ‘Twin’ approach: 
