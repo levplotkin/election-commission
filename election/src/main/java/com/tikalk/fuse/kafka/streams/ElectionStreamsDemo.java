@@ -2,6 +2,7 @@ package com.tikalk.fuse.kafka.streams;
 
 import com.tikalk.fuse.kafka.streams.models.Vote;
 import com.tikalk.fuse.kafka.streams.serdes.JsonPOJODeserializer;
+import com.tikalk.fuse.kafka.streams.serdes.JsonPOJOSerde;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -42,7 +43,8 @@ public class ElectionStreamsDemo {
         config.put( StreamsConfig.APPLICATION_ID_CONFIG, "my-first-tweet-ks1" );
         config.put( StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092" );
         config.put( StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName() );
-        config.put( StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, JsonPOJODeserializer.class.getName());
+//        config.put( StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, JsonPOJODeserializer.class.getName());
+        config.put( StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, JsonPOJOSerde.class.getName());
 
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, Vote> stream = builder.stream( "vote");
