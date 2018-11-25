@@ -61,18 +61,8 @@ public class ElectionStreamsDemo {
         KafkaStreams streams = new KafkaStreams(builder.build(),config);
         streams.start();
 
-
-
-//        StreamsBuilder builder = new StreamsBuilder();
-//        KStream<String, Vote> stream = builder.stream("vote", Consumed.with(Serdes.String(), voteSerde));
-//
-//        stream.foreach((k, v) -> System.out.println(  "key -> " + k + " value ->" + v ));
-//
-//        KafkaStreams streams = new KafkaStreams(builder.build(), props);
-//        streams.start();
-
         Thread.sleep(100000000);
-//        streams.close();
+        streams.close();
     }
 
 
