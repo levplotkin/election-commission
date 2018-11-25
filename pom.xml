@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.tika.fuse.kafka.streams</groupId>
-    <artifactId>election-commission</artifactId>
+    <artifactId>demo-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>election</module>
