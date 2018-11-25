@@ -20,6 +20,7 @@ import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.*;
 import org.apache.kafka.streams.state.KeyValueStore;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -50,13 +51,18 @@ public class ElectionStreamsDemo {
         config.put( "JsonPOJOClass", Vote.class);
 
 
-
+        JsonPOJOSerde<Vote> voteSerde = new JsonPOJOSerde<>();
+        voteSerde.configure(Collections.singletonMap("JsonPOJOClass", Vote.class), false);
 
 
         StreamsBuilder builder = new StreamsBuilder();
 
         KStream<String, Vote> stream = builder.stream("vote");
-        stream.foreach((k, v) -> System.out.println(  "key -> " + k + " value ->" + v ));
+        stream.groupBy((key, vote) -> vote.getChoice(), Grouped.with(Serdes.Integer(), voteSerde))
+                .count()
+                .toStream()
+                .to("grouped-output", Produced.with(Serdes.Integer(), Serdes.Long()));
+//        stream.foreach((k, v) -> System.out.println(  "key -> " + k + " value ->" + v ));
 
         KafkaStreams streams = new KafkaStreams(builder.build(),config);
         streams.start();
