@@ -8,7 +8,7 @@
 
 # CMake
 cmake-build-*/
-
+target/
 .idea/
 *.iml
 # File-based project format
