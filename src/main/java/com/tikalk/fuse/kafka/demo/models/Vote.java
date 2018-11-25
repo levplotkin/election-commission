@@ -1,4 +1,4 @@
-package com.tikalk.fuse.kafka.streams.models;
+package com.tikalk.fuse.kafka.demo.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.tikalk.fuse.kafka.streams.config;
+package com.tikalk.fuse.kafka.demo.config;
 
-import com.tikalk.fuse.kafka.streams.models.Vote;
+import com.tikalk.fuse.kafka.demo.models.Vote;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

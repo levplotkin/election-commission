@@ -1,4 +1,4 @@
-package com.tikalk.fuse.kafka.streams.config;
+package com.tikalk.fuse.kafka.demo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

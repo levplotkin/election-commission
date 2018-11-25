@@ -1,4 +1,4 @@
-package com.tikalk.fuse.kafka.streams;
+package com.tikalk.fuse.kafka.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
