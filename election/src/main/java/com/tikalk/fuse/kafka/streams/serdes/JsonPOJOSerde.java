@@ -1,5 +1,6 @@
 package com.tikalk.fuse.kafka.streams.serdes;
 
+import com.tikalk.fuse.kafka.streams.models.Vote;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
@@ -11,7 +12,7 @@ import java.util.Map;
  */
 public class JsonPOJOSerde<T> implements Serde<T> {
     private Serializer<T> serializer;
-    private Deserializer<T> deserializer;
+    private JsonPOJODeserializer<T> deserializer;
 
     public JsonPOJOSerde() {
         this.serializer = new JsonPOJOSerializer<>();
@@ -20,7 +21,7 @@ public class JsonPOJOSerde<T> implements Serde<T> {
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
-
+        deserializer.settClass((Class<T>) configs.get("JsonPOJOClass"));
     }
 
     @Override

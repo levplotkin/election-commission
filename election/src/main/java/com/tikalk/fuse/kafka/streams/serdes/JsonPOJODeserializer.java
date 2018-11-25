@@ -42,4 +42,8 @@ public class JsonPOJODeserializer<T> implements Deserializer<T> {
     public void close() {
 
     }
+
+    public void settClass(Class<T> tClass) {
+        this.tClass = tClass;
+    }
 }

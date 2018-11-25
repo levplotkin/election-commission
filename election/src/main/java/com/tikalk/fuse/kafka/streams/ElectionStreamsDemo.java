@@ -3,9 +3,11 @@ package com.tikalk.fuse.kafka.streams;
 import com.tikalk.fuse.kafka.streams.models.Vote;
 import com.tikalk.fuse.kafka.streams.serdes.JsonPOJODeserializer;
 import com.tikalk.fuse.kafka.streams.serdes.JsonPOJOSerde;
+import com.tikalk.fuse.kafka.streams.serdes.JsonPOJOSerializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Deserializer;
+import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.Serdes.LongSerde;
 import org.apache.kafka.common.serialization.Serializer;
@@ -18,6 +20,7 @@ import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.*;
 import org.apache.kafka.streams.state.KeyValueStore;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -43,23 +46,33 @@ public class ElectionStreamsDemo {
         config.put( StreamsConfig.APPLICATION_ID_CONFIG, "my-first-tweet-ks1" );
         config.put( StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092" );
         config.put( StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName() );
-//        config.put( StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, JsonPOJODeserializer.class.getName());
         config.put( StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, JsonPOJOSerde.class.getName());
+        config.put( "JsonPOJOClass", Vote.class);
+
+
+
+
 
         StreamsBuilder builder = new StreamsBuilder();
-        KStream<String, Vote> stream = builder.stream( "vote");
-//        KTable<Windowed<String>, Long> longSums = stream
-//                .groupBy( (k, v) -> v.getChoice() )
-//                .windowedBy( TimeWindows.of( TimeUnit.SECONDS.toMillis( 5 ) ) )
-//                .count();
-//        longSums.foreach( (k, v) -> System.out.println( "start -> " + k.window().start() + "  key -> " + k.key() + " value ->" + v.toString() )) ;
 
+        KStream<String, Vote> stream = builder.stream("vote");
         stream.foreach((k, v) -> System.out.println(  "key -> " + k + " value ->" + v ));
-        KafkaStreams streams = new KafkaStreams( builder.build(), config );
+
+        KafkaStreams streams = new KafkaStreams(builder.build(),config);
         streams.start();
 
+
+
+//        StreamsBuilder builder = new StreamsBuilder();
+//        KStream<String, Vote> stream = builder.stream("vote", Consumed.with(Serdes.String(), voteSerde));
+//
+//        stream.foreach((k, v) -> System.out.println(  "key -> " + k + " value ->" + v ));
+//
+//        KafkaStreams streams = new KafkaStreams(builder.build(), props);
+//        streams.start();
+
         Thread.sleep(100000000);
-        streams.close();
+//        streams.close();
     }
 
 

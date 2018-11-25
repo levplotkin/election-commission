@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -29,7 +32,12 @@ public class VoteProducer {
 
         vote.setUuid(UUID.randomUUID().toString());
 
-        this.kafkaTemplate.send(voteTopic, vote);
+        Message<Vote> message = MessageBuilder.withPayload(vote)
+                .setHeader(KafkaHeaders.MESSAGE_KEY, "kuku")
+                .setHeader(KafkaHeaders.TOPIC, voteTopic)
+                .build();
+
+        this.kafkaTemplate.send(message);
 
         logger.info(String.format("#### -> send -> %s", vote));
     }
