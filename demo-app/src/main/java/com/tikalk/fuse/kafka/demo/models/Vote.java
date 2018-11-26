@@ -11,6 +11,6 @@ import java.util.Map;
 @NoArgsConstructor
 public class Vote {
     private String uuid;
-    private Integer choice;
-    private Map<String, String> metaData;
+    private Integer candidateId;
+    private String region;
 }

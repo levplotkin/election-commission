@@ -32,13 +32,14 @@ public class VoteProducer {
 
         vote.setUuid(UUID.randomUUID().toString());
 
+        String topic = voteTopic + "-" + vote.getRegion().toUpperCase();
         Message<Vote> message = MessageBuilder.withPayload(vote)
                 .setHeader(KafkaHeaders.MESSAGE_KEY, "kuku")
-                .setHeader(KafkaHeaders.TOPIC, voteTopic)
+                .setHeader(KafkaHeaders.TOPIC, topic+vote.getRegion().toUpperCase())
                 .build();
 
         this.kafkaTemplate.send(message);
 
-        logger.info(String.format("#### -> send -> %s", vote));
+        logger.info(String.format("#### -> send -> %s, to topic %s", vote,topic ));
     }
 }

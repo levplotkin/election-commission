@@ -15,6 +15,6 @@ public class VoteTopicListener {
 
     @KafkaHandler
     public void listen(Vote vote) {
-        logger.info(vote.toString());
+        logger.info(vote.toString())            ;
     }
 }

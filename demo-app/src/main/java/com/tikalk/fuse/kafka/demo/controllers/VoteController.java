@@ -18,6 +18,7 @@ public class VoteController {
 
     @PostMapping("/vote")
     public void sendMessageToKafkaTopicVote(@RequestBody Vote vote) {
+
         this.producer.submitVote(vote);
     }
 
